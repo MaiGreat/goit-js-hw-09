@@ -25,7 +25,6 @@ function onChangeColor(evt) {
 }
 
 function offChangeColor(evt) {
-    
     findButtonElStart.removeAttribute('disabled');
     findButtonElStop.setAttribute('disabled', true);
     
