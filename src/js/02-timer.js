@@ -11,6 +11,7 @@ const fieldMinutesEl = document.querySelector('[data-minutes]');
 const fieldSecondsEl = document.querySelector('[data-seconds]');
 
 let intervalId = null;
+let timeToEvent = null;
 
 buttonStartEl.setAttribute('disabled', true);
 
@@ -20,13 +21,14 @@ const options = {
     defaultDate: new Date(),
     minuteIncrement: 1,
     onClose(selectedDates) {
-    console.log(selectedDates[0]);
-        if (selectedDates[0] < new Date()) {
+        timeToEvent = selectedDates[0];
+    // console.log(timeToEvent);
+        if (timeToEvent < new Date()) {
         window.alert("Please choose a date in the future");
         } else {
             buttonStartEl.removeAttribute('disabled');
     }
-  },
+},
 };
 
 flatpickr(inputEl, options);
@@ -35,20 +37,30 @@ buttonStartEl.addEventListener('click', onClickStartButton);
 
 
 function onClickStartButton() {
+
+    buttonStartEl.setAttribute('disabled', true);
     intervalId = setInterval(() => {
         const currentDate = Date.now();
-        const selectedDate = selectedDates[0];
-        const timeToFinish = selectedDate - currentDate;
-        console.log(timeToFinish);
-        const { days, hours, minutes, seconds } = convertMs(timeToFinish);
+        const timeToFinishEvent = timeToEvent - currentDate;
+        // console.log(timeToFinishEvent);
+
+
+        const { days, hours, minutes, seconds } = convertMs(timeToFinishEvent);
+        
+
     fieldDaysEl.textContent = addLeadingZero(days);
     fieldHoursEl.textContent = addLeadingZero(hours);
     fieldMinutesEl.textContent = addLeadingZero(minutes);
     fieldSecondsEl.textContent = addLeadingZero(seconds);
 
-        console.log(`${days}:${hours}:${minutes}:${seconds}`);
-
+        // console.log(`${days}:${hours}:${minutes}:${seconds}`);
+            if (timeToFinishEvent <= 1000) {
+                clearInterval(intervalId);
+                // console.log(timeToFinishEvent);
+    }
     }, 1000)
+
+
 
 }
 

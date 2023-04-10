@@ -1,19 +1,20 @@
 
-const findButtonElStart = document.querySelector('button[data-start]');
-const findButtonElStop = document.querySelector('button[data-stop]');
+const buttonElStart = document.querySelector('button[data-start]');
+const buttonElStop = document.querySelector('button[data-stop]');
 const bodyEl = document.querySelector('body');
 
 
 
-findButtonElStart.addEventListener('click', onChangeColor);
-findButtonElStop.addEventListener('click', offChangeColor);
+buttonElStart.addEventListener('click', onChangeColor);
+buttonElStop.addEventListener('click', offChangeColor);
 
-findButtonElStop.setAttribute('disabled', true);
+buttonElStop.setAttribute('disabled', true);
 
-function onChangeColor(evt) {
-        findButtonElStart.setAttribute('disabled', true);
-        findButtonElStop.removeAttribute('disabled')
+function onChangeColor() {
+        // buttonElStart.setAttribute('disabled', true);
+        // buttonElStop.removeAttribute('disabled')
 
+    changeButtonsAttribute()
     timerId = setInterval(() => {
     const changeColor = getRandomHexColor();
     
@@ -24,11 +25,15 @@ function onChangeColor(evt) {
   }, 1000);
 }
 
-function offChangeColor(evt) {
-    findButtonElStart.removeAttribute('disabled');
-    findButtonElStop.setAttribute('disabled', true);
-    
+function offChangeColor() {
+    // buttonElStart.removeAttribute('disabled');
+    // buttonElStop.setAttribute('disabled', true);
+    changeButtonsAttribute();
     bodyEl.style.backgroundColor = '#fafafa';
     clearInterval(timerId);
 }
 
+function changeButtonsAttribute() {
+    buttonElStart.toggleAttribute('disabled');
+    buttonElStop.toggleAttribute('disabled');
+}
