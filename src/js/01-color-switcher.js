@@ -3,6 +3,7 @@ const buttonElStart = document.querySelector('button[data-start]');
 const buttonElStop = document.querySelector('button[data-stop]');
 const bodyEl = document.querySelector('body');
 
+let timerId = null;
 
 
 buttonElStart.addEventListener('click', onChangeColor);
@@ -13,7 +14,6 @@ buttonElStop.setAttribute('disabled', true);
 function onChangeColor() {
         // buttonElStart.setAttribute('disabled', true);
         // buttonElStop.removeAttribute('disabled')
-
     changeButtonsAttribute()
     timerId = setInterval(() => {
     const changeColor = getRandomHexColor();
@@ -22,7 +22,8 @@ function onChangeColor() {
         return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, 0)}`;
     };
         bodyEl.style.backgroundColor = changeColor;
-  }, 1000);
+    }, 1000);
+    
 }
 
 function offChangeColor() {

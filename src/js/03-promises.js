@@ -15,7 +15,8 @@ function onSubmit (evt) {
   const amount = Number(fildAmount.value);
 
 
-  for (i = 1; i <= amount; i +=1) {
+  for (let i = 1; i <= amount; i += 1) {
+    console.log(i);
     createPromise(i, delay)
         .then(({ position, delay }) => {
     Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
